@@ -92,7 +92,42 @@ public class SysUserServiceImpl implements SysUserService {
         }
     }
 
-
+    @Override
+    public Result login(SignDto signDto) {
+        String mobile = signDto.getMobile();
+        String password = signDto.getPassword();
+        SysUser sysUser;
+        QueryDto queryDto = QueryDto.builder().equalsString(mobile).build();
+        try {
+            sysUser = sysUserMapper.findUserBy(queryDto);
+        } catch (SQLException e) {
+            log.error(e.getMessage());
+            return Result.failure(ResultCode.DATABASE_ERROR);
+        }
+        if (sysUser != null) {
+            /*判断用户帐号是否异常*/
+            if(sysUser.getStatus()==1){
+                /*密码正确*/
+                if((SaltUtil.MD5WithSaltDeCode(password,sysUser.getSalt())).equals(sysUser.getPassword())){
+                    String token = DigestUtils.sha3_256Hex(signDto.getMobile());
+                    redisService.set(mobile, token, 60 * 24L);
+                    SysUser sysUser1 = SysUser.builder()
+                            .id(sysUser.getId())
+                            .userName(sysUser.getUserName())
+                            .email(sysUser.getEmail())
+                            .phoneNumber(sysUser.getPhoneNumber())
+                            .credits(sysUser.getCredits())
+                            .createTime(sysUser.getCreateTime())
+                            .lastLoginTime(sysUser.getLastLoginTime())
+                            .build();
+                    return Result.success(sysUser1);
+                }
+                return Result.failure(ResultCode.USER_PASSWORD_ERROR);
+            }
+           return Result.failure(ResultCode.USER_ACCOUNT_FORBIDDEN);
+        }
+        return Result.failure(ResultCode.USER_ACCOUNT_ERROR);
+    }
 
 
 }

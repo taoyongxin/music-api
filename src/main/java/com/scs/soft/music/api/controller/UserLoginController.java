@@ -61,5 +61,14 @@ public class UserLoginController {
     Result register(@RequestBody SignDto signDto){
         return sysUserService.register(signDto);
     }
-
+    /**
+     * 账号密码登录
+     * @param signDto
+     * @return
+     */
+    @ApiOperation(value = "通过帐号密码登录",notes = "data为用户的数据")
+    @PostMapping(value = "/login")
+    Result login(@RequestBody SignDto signDto) {
+        return sysUserService.login(signDto);
+    }
 }

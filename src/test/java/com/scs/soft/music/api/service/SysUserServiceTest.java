@@ -27,4 +27,14 @@ class SysUserServiceTest {
                 .build();
         sysUserService.register(signDto);
     }
+
+    @Test
+    void login() {
+        SignDto signDto = SignDto.builder()
+                .mobile("13270003516")
+                .password("tyx000101")
+                .build();
+        System.out.println(sysUserService.login(signDto));
+
+    }
 }
