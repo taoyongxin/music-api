@@ -48,4 +48,16 @@ public interface MusicMapper {
      */
     @Select("SELECT * FROM t_music LIMIT #{offset},#{pageSize}")
     List<Music> queryByPage(@Param("offset") int offset, @Param("pageSize") int pageSize) throws SQLException;
+
+    /**
+     * 通过歌曲名，歌手，歌曲类型模糊查询歌曲
+     * @param key
+     * @return List
+     * @throws SQLException
+     */
+    @Select("SELECT * FROM t_music WHERE " +
+            "name LIKE CONCAT('%',#{key},'%') " +
+            "OR author LIKE CONCAT('%',#{key},'%') " +
+            "OR type LIKE CONCAT('%',#{key},'%') ")
+    List<Music> queryByKeyword(@Param("key") String key) throws SQLException;
 }

@@ -34,4 +34,11 @@ public interface MusicService {
      * @return
      */
     Result update(Music music);
+
+    /**
+     * 根据关键字查询歌曲
+     * @param key
+     * @return
+     */
+    Result queryByKeyword(String key);
 }

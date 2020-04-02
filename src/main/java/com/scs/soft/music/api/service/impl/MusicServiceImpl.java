@@ -104,4 +104,19 @@ public class MusicServiceImpl implements MusicService {
         }
         return Result.success(music1);
     }
+
+    @Override
+    public Result queryByKeyword(String key) {
+        List<Music> musicList = null;
+        try {
+            musicList = musicMapper.queryByKeyword(key);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if (musicList.size() != 0) {
+            return Result.success(musicList);
+        } else {
+            return Result.failure(ResultCode.RESULT_CODE_DATA_NONE);
+        }
+    }
 }

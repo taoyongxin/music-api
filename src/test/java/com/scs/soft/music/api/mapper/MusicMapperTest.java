@@ -30,4 +30,14 @@ class MusicMapperTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    void queryByKeyword() {
+        try {
+            String key =  "流行" ;
+            musicMapper.queryByKeyword(key).forEach(System.out::println);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
