@@ -5,6 +5,9 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
+/**
+ * @author Cao
+ */
 @Data
 @Builder
 public class Music {

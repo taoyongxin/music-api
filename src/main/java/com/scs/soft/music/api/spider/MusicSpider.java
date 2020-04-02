@@ -1,17 +1,18 @@
 package com.scs.soft.music.api.spider;
 
 import com.scs.soft.music.api.entity.Music;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Cao
+ */
 public class MusicSpider {
     private static final Integer SUCCESS = 200;
 
