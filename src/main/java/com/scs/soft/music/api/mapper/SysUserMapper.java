@@ -1,8 +1,7 @@
 package com.scs.soft.music.api.mapper;
 
 import com.scs.soft.music.api.domain.entity.SysUser;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.sql.SQLException;
 
@@ -23,4 +22,23 @@ public interface SysUserMapper {
      */
     @Select("SELECT * FROM sys_user WHERE id=#{id} ")
     SysUser queryById(@Param("id") int id) throws SQLException;
+
+    /**
+     * 新增用户
+     * @param sysUser
+     * @throws SQLException
+     */
+    @Insert("INSERT INTO sys_user (id,user_name,password,salt,email,phone_number,status,binding,credits,create_time,last_login_time)"+
+            "VALUE (#{id},#{userName},#{password},#{salt},#{email},#{phoneNumber},#{status},#{binding},#{credits},#{createTime},#{lastLoginTime})")
+    @Options(useGeneratedKeys = true,keyProperty = "id")
+    void insert(SysUser sysUser) throws SQLException;
+
+    /**
+     * 修改用户数据
+     * @param sysUser
+     * @throws SQLException
+     */
+    @Update("UPDATE sys_user SET user_name=#{userName} WHERE id=#{id}")
+    void update(SysUser sysUser) throws SQLException;
+
 }
