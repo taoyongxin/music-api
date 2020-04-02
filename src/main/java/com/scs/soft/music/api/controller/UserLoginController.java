@@ -36,4 +36,16 @@ public class UserLoginController {
     Result getSms(@RequestBody SignDto signDto){
         return smsService.sendSms(signDto);
     }
+
+    /**
+     * 验证手机短信
+     * @param signDto
+     * @return
+     */
+    @ApiOperation(value = "判断手机号和验证码是否匹配",notes = "")
+    @PostMapping(value = "/sms/check")
+    Result checkSms(@RequestBody SignDto signDto){
+        return smsService.checkSms(signDto);
+    }
+
 }
