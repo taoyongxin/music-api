@@ -9,6 +9,7 @@ import com.scs.soft.music.api.mapper.CommonMapper;
 import com.scs.soft.music.api.mapper.SysUserMapper;
 import com.scs.soft.music.api.service.RedisService;
 import com.scs.soft.music.api.service.SysUserService;
+import com.scs.soft.music.api.util.SaltUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,7 @@ import java.time.LocalDate;
  **/
 @Service
 @Slf4j
-public class SysServiceImpl implements SysUserService {
+public class SysUserServiceImpl implements SysUserService {
     @Resource
     private SysUserMapper sysUserMapper;
     @Resource
@@ -53,6 +54,8 @@ public class SysServiceImpl implements SysUserService {
     public Result register(SignDto signDto) {
         String mobile = signDto.getMobile();
         String password = signDto.getPassword();
+        String passwordSalt = SaltUtil.MD5WithSalt(password,0);
+        String salt = SaltUtil.getSaltFromHash(passwordSalt);
         QueryDto queryDto = QueryDto.builder().equalsString(mobile).build();
         SysUser sysUser;
         try {
@@ -66,8 +69,8 @@ public class SysServiceImpl implements SysUserService {
         if(sysUser == null){
             SysUser sysUser1 = SysUser.builder()
                     .userName("User"+mobile)
-                    .password(DigestUtils.md5Hex(password))
-                    .salt("yan")
+                    .password(passwordSalt)
+                    .salt(salt)
                     .phoneNumber(signDto.getMobile())
                     .status(1)
                     .binding(1)
@@ -76,6 +79,7 @@ public class SysServiceImpl implements SysUserService {
                     .build();
             try {
                 commonMapper.alert("sys_user");
+                sysUserMapper.insert(sysUser1);
             } catch (SQLException e) {
                 log.error(e.getMessage());
                 return Result.failure(ResultCode.DATABASE_ERROR);
