@@ -1,6 +1,6 @@
 package com.scs.soft.music.api.spider;
 
-import com.scs.soft.music.api.entity.Music;
+import com.scs.soft.music.api.domain.entity.Music;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.protocol.HttpClientContext;

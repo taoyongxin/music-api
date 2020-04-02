@@ -1,4 +1,4 @@
-package com.scs.soft.music.api.entity;
+package com.scs.soft.music.api.domain.entity;
 
 import lombok.Builder;
 import lombok.Data;
