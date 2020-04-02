@@ -1,6 +1,7 @@
 package com.scs.soft.music.api.mapper;
 
 import com.scs.soft.music.api.domain.entity.Music;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -28,14 +29,17 @@ public interface MusicMapper {
     /**
      * 根据id查询音乐
      * @param id
+     * @return Music
      */
-    void queryById(Integer id);
+    @Select("SELECT * FROM t_music WHERE id=#{id} ")
+    Music queryById(Integer id);
 
     /**
      * 分页查询音乐
      * @param offset
-     * @param page
+     * @param pageSize
      * @return List
      */
-    List<Music> queryByPage(int offset, int page);
+    @Select("SELECT * FROM t_music LIMIT #{offset},#{pageSize}")
+    List<Music> queryByPage(@Param("offset") int offset, @Param("pageSize") int pageSize);
 }
