@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
+import java.sql.SQLException;
 
 @SpringBootTest(classes = MusicApiApplication.class)
 class MusicMapperTest {
@@ -14,11 +15,19 @@ class MusicMapperTest {
 
     @Test
     void queryById() {
-        System.out.println(musicMapper.queryById(1));
+        try {
+            System.out.println(musicMapper.queryById(1));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
     void queryByPage() {
-        musicMapper.queryByPage(0,5).forEach(System.out::println);
+        try {
+            musicMapper.queryByPage(0,5).forEach(System.out::println);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
