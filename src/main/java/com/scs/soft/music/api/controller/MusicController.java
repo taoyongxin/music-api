@@ -40,7 +40,6 @@ public class MusicController {
     Result queryByPage(@RequestParam("offset") int offset, @RequestParam("size") int size){
         return musicService.queryByPage(offset, size);
     }
-
     @ApiOperation(value = "更新", notes = "")
     @PostMapping(value = "/update")
     Result updateMusic(@RequestBody Music music) {
