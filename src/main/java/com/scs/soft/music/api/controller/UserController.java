@@ -30,5 +30,4 @@ public class UserController {
     Result queryById(@PathVariable int id) {
         return sysUserService.queryById(id);
     }
-
 }

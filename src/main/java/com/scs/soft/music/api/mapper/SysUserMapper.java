@@ -1,5 +1,6 @@
 package com.scs.soft.music.api.mapper;
 
+import com.scs.soft.music.api.domain.dto.QueryDto;
 import com.scs.soft.music.api.domain.entity.SysUser;
 import org.apache.ibatis.annotations.*;
 
@@ -28,8 +29,8 @@ public interface SysUserMapper {
      * @param sysUser
      * @throws SQLException
      */
-    @Insert("INSERT INTO sys_user (id,user_name,password,salt,email,phone_number,status,binding,credits,create_time,last_login_time)"+
-            "VALUE (#{id},#{userName},#{password},#{salt},#{email},#{phoneNumber},#{status},#{binding},#{credits},#{createTime},#{lastLoginTime})")
+    @Insert("INSERT INTO sys_user (user_name,password,salt,email,phone_number,status,binding,credits,create_time,last_login_time)"+
+            "VALUE (#{userName},#{password},#{salt},#{email},#{phoneNumber},#{status},#{binding},#{credits},#{createTime},#{lastLoginTime})")
     @Options(useGeneratedKeys = true,keyProperty = "id")
     void insert(SysUser sysUser) throws SQLException;
 
@@ -41,4 +42,22 @@ public interface SysUserMapper {
     @Update("UPDATE sys_user SET user_name=#{userName} WHERE id=#{id}")
     void update(SysUser sysUser) throws SQLException;
 
+
+    /**
+     * 根据id或者手机号码查找用户
+     * @param queryDto
+     * @return
+     * @throws SQLException
+     */
+    @Select({"<script>",
+            "SELECT * FROM sys_user ",
+            "WHERE 1=1 ",
+            "<when test='queryDto.id != null'> ",
+            "AND id = #{queryDto.id} ",
+            "</when> ",
+            "<when test='queryDto.equalsString != null'> ",
+            "AND phone_number = #{queryDto.equalsString} ",
+            "</when> ",
+            "</script>"})
+    SysUser findUserBy(@Param("queryDto")QueryDto queryDto) throws SQLException;
 }

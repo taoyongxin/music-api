@@ -1,6 +1,7 @@
 package com.scs.soft.music.api.service;
 
 import com.scs.soft.music.api.common.Result;
+import com.scs.soft.music.api.domain.dto.SignDto;
 
 /**
  * @author Tao
@@ -12,4 +13,11 @@ public interface SysUserService {
      * @return
      */
     Result queryById(int id);
+
+    /**
+     * 用户注册帐号
+     * @param signDto
+     * @return
+     */
+    Result register(SignDto signDto);
 }
