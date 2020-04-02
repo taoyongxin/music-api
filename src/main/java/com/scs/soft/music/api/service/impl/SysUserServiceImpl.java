@@ -109,6 +109,7 @@ public class SysUserServiceImpl implements SysUserService {
             if(sysUser.getStatus()==1){
                 /*密码正确*/
                 if((SaltUtil.MD5WithSaltDeCode(password,sysUser.getSalt())).equals(sysUser.getPassword())){
+                    sysUser.setLastLoginTime(LocalDate.now());
                     String token = DigestUtils.sha3_256Hex(signDto.getMobile());
                     redisService.set(mobile, token, 60 * 24L);
                     SysUser sysUser1 = SysUser.builder()
@@ -120,6 +121,11 @@ public class SysUserServiceImpl implements SysUserService {
                             .createTime(sysUser.getCreateTime())
                             .lastLoginTime(sysUser.getLastLoginTime())
                             .build();
+                    try {
+                        sysUserMapper.update(sysUser);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
                     return Result.success(sysUser1);
                 }
                 return Result.failure(ResultCode.USER_PASSWORD_ERROR);
