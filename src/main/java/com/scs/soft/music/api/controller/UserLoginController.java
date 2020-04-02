@@ -3,6 +3,7 @@ package com.scs.soft.music.api.controller;
 import com.scs.soft.music.api.common.Result;
 import com.scs.soft.music.api.domain.dto.SignDto;
 import com.scs.soft.music.api.service.SmsService;
+import com.scs.soft.music.api.service.SysUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,6 +26,8 @@ import javax.annotation.Resource;
 public class UserLoginController {
     @Resource
     private SmsService smsService;
+    @Resource
+    private SysUserService sysUserService;
 
     /**
      * 发送手机短信
@@ -46,5 +49,26 @@ public class UserLoginController {
     @PostMapping(value = "/sms/check")
     Result checkSms(@RequestBody SignDto signDto){
         return smsService.checkSms(signDto);
+    }
+
+    /**
+     * 用户注册
+     * @param signDto
+     * @return
+     */
+    @ApiOperation(value = "通过手机号码和密码注册",notes = "")
+    @PostMapping(value = "/register")
+    Result register(@RequestBody SignDto signDto){
+        return sysUserService.register(signDto);
+    }
+    /**
+     * 账号密码登录
+     * @param signDto
+     * @return
+     */
+    @ApiOperation(value = "通过帐号密码登录",notes = "data为用户的数据")
+    @PostMapping(value = "/login")
+    Result login(@RequestBody SignDto signDto) {
+        return sysUserService.login(signDto);
     }
 }

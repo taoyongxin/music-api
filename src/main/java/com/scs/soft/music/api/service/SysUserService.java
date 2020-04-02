@@ -20,4 +20,11 @@ public interface SysUserService {
      * @return
      */
     Result register(SignDto signDto);
+
+    /**
+     * 账号密码登录
+     * @param signDto
+     * @return
+     */
+    Result login(SignDto signDto);
 }

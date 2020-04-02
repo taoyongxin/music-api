@@ -39,7 +39,7 @@ public interface SysUserMapper {
      * @param sysUser
      * @throws SQLException
      */
-    @Update("UPDATE sys_user SET user_name=#{userName} WHERE id=#{id}")
+    @Update("UPDATE sys_user SET user_name=#{userName},email=#{email},credits=#{credits},last_login_time=#{lastLoginTime} WHERE id=#{id}")
     void update(SysUser sysUser) throws SQLException;
 
 

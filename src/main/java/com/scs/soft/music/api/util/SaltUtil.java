@@ -18,7 +18,7 @@ public class SaltUtil {
         String input = "123456";
 //        System.out.println("带盐密文：" + MD5WithSalt(input,0));
 //        提取盐
-        System.out.println("yyy:"+MD5WithSaltDeCode("000101","F3F47E2A80EE0607"));
+//        System.out.println("yyy:"+MD5WithSaltDeCode("000101","F3F47E2A80EE0607"));
        // System.out.println("盐"+getSaltFromHash("5D9E84DB69E16903DF4A49B8F90A1F381BDCBCBCBC8EC919"));
 
     }
@@ -56,10 +56,10 @@ public class SaltUtil {
             }
             String inputWithSalt = inputStr + salt;//加盐，输入加盐
 
-            System.out.println("MD5WithSalt盐"+salt);
+//            System.out.println("MD5WithSalt盐"+salt);
 
             String hashResult = byte2HexStr(md.digest(inputWithSalt.getBytes()));//哈希计算,转换输出
-            System.out.println("加盐密文："+hashResult);
+//            System.out.println("加盐密文："+hashResult);
 
             /*将salt存储到hash值中，用于登陆验证密码时使用相同的盐*/
             char[] cs = new char[48];
@@ -85,10 +85,10 @@ public class SaltUtil {
 
             String inputWithSalt = inputStr + salt;//加盐，输入加盐
 
-            System.out.println("MD5WithSalt盐"+salt);
+//            System.out.println("MD5WithSalt盐"+salt);
 
             String hashResult = byte2HexStr(md.digest(inputWithSalt.getBytes()));//哈希计算,转换输出
-            System.out.println("加盐密文："+hashResult);
+//            System.out.println("加盐密文："+hashResult);
 
             /*将salt存储到hash值中，用于登陆验证密码时使用相同的盐*/
             char[] cs = new char[48];

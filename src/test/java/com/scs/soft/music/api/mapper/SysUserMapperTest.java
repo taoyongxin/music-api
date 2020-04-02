@@ -53,4 +53,13 @@ class SysUserMapperTest {
         }
 
     }
+
+    @Test
+    void update() throws SQLException{
+        SysUser sysUser = sysUserMapper.queryById(1);
+        sysUser.setCredits(100);
+        sysUser.setUserName("修改昵称");
+        sysUser.setLastLoginTime(LocalDate.now());
+        sysUserMapper.update(sysUser);
+    }
 }
