@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * @date 2020-04-02 10:50
  **/
 @RestController
-@RequestMapping(value = "/api/user")
+@RequestMapping(value = "/api/userLogin")
 @Api(value = "UserLoginController",tags = {"用户登录模块接口"})
 public class UserLoginController {
     @Resource
@@ -47,5 +47,4 @@ public class UserLoginController {
     Result checkSms(@RequestBody SignDto signDto){
         return smsService.checkSms(signDto);
     }
-
 }
