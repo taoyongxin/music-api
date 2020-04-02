@@ -25,4 +25,17 @@ public interface MusicMapper {
     @Update("UPDATE t_music SET name=#{name},author=#{author},img=#{img},count=#{count},type=#{type}")
     void  update(Music music);
 
+    /**
+     * 根据id查询音乐
+     * @param id
+     */
+    void queryById(Integer id);
+
+    /**
+     * 分页查询音乐
+     * @param offset
+     * @param page
+     * @return List
+     */
+    List<Music> queryByPage(int offset, int page);
 }
