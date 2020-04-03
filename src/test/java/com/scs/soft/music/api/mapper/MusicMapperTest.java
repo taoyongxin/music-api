@@ -33,10 +33,10 @@ class MusicMapperTest {
             e.printStackTrace();
         }
     }
-
+//
     @Test
-    void insert() throws SQLException {
-        List<Music> musicList = CloudMusicSpider.getCloudMusicList();
+    void insert() throws Exception {
+        List<Music> musicList = CloudMusicSpider.spider();
         for (Music music : musicList) {
             musicMapper.insert(music);
         }
