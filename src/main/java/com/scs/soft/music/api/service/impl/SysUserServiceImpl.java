@@ -16,7 +16,10 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Date;
 
 /**
  * @author Tao
@@ -109,6 +112,18 @@ public class SysUserServiceImpl implements SysUserService {
             if(sysUser.getStatus()==1){
                 /*密码正确*/
                 if((SaltUtil.MD5WithSaltDeCode(password,sysUser.getSalt())).equals(sysUser.getPassword())){
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                    Date nowDate = null;
+                    Date lastDate = null;
+                    try {
+                        nowDate = sdf.parse(String.valueOf(LocalDate.now()));
+                        lastDate = sdf.parse(String.valueOf(sysUser.getLastLoginTime()));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    if (nowDate.after(lastDate)){
+                        sysUser.setCredits(sysUser.getCredits()+5);
+                    }
                     sysUser.setLastLoginTime(LocalDate.now());
                     String token = DigestUtils.sha3_256Hex(signDto.getMobile());
                     redisService.set(mobile, token, 60 * 24L);
