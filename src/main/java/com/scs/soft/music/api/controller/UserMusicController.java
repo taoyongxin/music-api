@@ -31,4 +31,10 @@ public class UserMusicController {
     Result insertUserMusic(@RequestBody UserMusic userMusic) {
         return userMusicService.likeMusic(userMusic);
     }
+
+    @ApiOperation(value = "用户取消收藏音乐",notes = "")
+    @PostMapping("/cancelLike")
+    Result deleteUserMusic(@RequestBody UserMusic userMusic) {
+        return userMusicService.cancelMusic(userMusic);
+    }
 }

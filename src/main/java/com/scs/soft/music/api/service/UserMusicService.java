@@ -14,4 +14,11 @@ public interface UserMusicService {
      * @return
      */
     Result likeMusic(UserMusic userMusic);
+
+    /**
+     * 用户取消收藏音乐
+     * @param userMusic
+     * @return
+     */
+    Result cancelMusic(UserMusic userMusic);
 }
