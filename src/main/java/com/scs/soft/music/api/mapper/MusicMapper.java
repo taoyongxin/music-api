@@ -56,4 +56,17 @@ public interface MusicMapper {
             "VALUE (#{name},#{author},#{src},#{img},#{count},#{type},#{updateTime})")
     @Options(useGeneratedKeys = true,keyProperty = "id")
     void insert(Music music) throws SQLException;
+
+    /**
+     * 通过歌曲名，歌手，歌曲类型模糊查询歌曲
+     * @param key
+     * @return
+     * @throws SQLException
+     */
+    @Select("SELECT * FROM t_music WHERE " +
+            "name LIKE CONCAT('%',#{key},'%') " +
+            "OR author LIKE CONCAT('%',#{key},'%') " +
+            "OR type LIKE CONCAT('%',#{key},'%') ")
+    List<Music> queryByKeyword(@Param("key") String key) throws SQLException;
+
 }

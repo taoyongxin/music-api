@@ -40,10 +40,17 @@ public class MusicController {
     Result queryByPage(@RequestParam("offset") int offset, @RequestParam("size") int size){
         return musicService.queryByPage(offset, size);
     }
-    @ApiOperation(value = "更新", notes = "")
+
+    @ApiOperation(value = "更新", notes = "data为音乐数据")
     @PostMapping(value = "/update")
     Result updateMusic(@RequestBody Music music) {
         return musicService.update(music);
+    }
+
+    @ApiOperation(value = "模糊查询音乐信息", notes = "data为音乐数据")
+    @GetMapping(value = "/search")
+    Result searchByKeyword(@RequestParam("key") String key) {
+        return musicService.queryByKeyword(key);
     }
 
 }

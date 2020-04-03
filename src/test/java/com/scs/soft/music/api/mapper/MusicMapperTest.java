@@ -37,8 +37,17 @@ class MusicMapperTest {
     @Test
     void insert() throws SQLException {
         List<Music> musicList = CloudMusicSpider.getCloudMusicList();
-        for (Music music:musicList){
+        for (Music music : musicList) {
             musicMapper.insert(music);
+        }
+    }
+    @Test
+    void queryByKeyword() {
+        try {
+            String key =  "流行" ;
+            musicMapper.queryByKeyword(key).forEach(System.out::println);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }
