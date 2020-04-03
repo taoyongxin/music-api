@@ -1,11 +1,14 @@
 package com.scs.soft.music.api.mapper;
 
 import com.scs.soft.music.api.MusicApiApplication;
+import com.scs.soft.music.api.domain.entity.Music;
+import com.scs.soft.music.api.spider.CloudMusicSpider;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
 import java.sql.SQLException;
+import java.util.List;
 
 @SpringBootTest(classes = MusicApiApplication.class)
 class MusicMapperTest {
@@ -28,6 +31,14 @@ class MusicMapperTest {
             musicMapper.queryByPage(0,5).forEach(System.out::println);
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    @Test
+    void insert() throws SQLException {
+        List<Music> musicList = CloudMusicSpider.getCloudMusicList();
+        for (Music music:musicList){
+            musicMapper.insert(music);
         }
     }
 }

@@ -1,9 +1,7 @@
 package com.scs.soft.music.api.mapper;
 
 import com.scs.soft.music.api.domain.entity.Music;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -48,4 +46,14 @@ public interface MusicMapper {
      */
     @Select("SELECT * FROM t_music LIMIT #{offset},#{pageSize}")
     List<Music> queryByPage(@Param("offset") int offset, @Param("pageSize") int pageSize) throws SQLException;
+
+    /**
+     * 新增音乐
+     * @param music
+     * @throws SQLException
+     */
+    @Insert("INSERT INTO t_music (name,author,src,img,count,type,update_time)"+
+            "VALUE (#{name},#{author},#{src},#{img},#{count},#{type},#{updateTime})")
+    @Options(useGeneratedKeys = true,keyProperty = "id")
+    void insert(Music music) throws SQLException;
 }

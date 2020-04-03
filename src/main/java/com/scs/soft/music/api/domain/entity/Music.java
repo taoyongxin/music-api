@@ -16,7 +16,7 @@ public class Music {
     private String author;
     private String src;
     private String img;
-    private String count;
+    private Integer count;
     private String type;
     private LocalDateTime updateTime;
 }
