@@ -71,4 +71,18 @@ public class UserMusicServiceImpl implements UserMusicService {
         }
         return Result.failure(ResultCode.DATA_IS_WRONG);
     }
+
+    @Override
+    public Result batchcancelMusic(List<UserMusic> userMusicList) {
+        int rows = 0;
+        try {
+           rows = userMusicMapper.batchDelete(userMusicList);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if (rows == userMusicList.size()) {
+            return Result.success();
+        }
+        return Result.failure(ResultCode.DATA_IS_WRONG);
+    }
 }

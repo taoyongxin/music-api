@@ -57,4 +57,19 @@ public interface UserMusicMapper {
             "ON t1.music_id = t3.id " +
             "WHERE t1.music_id = #{musicId}")
     List<Map> selectUserMusicByMusicId(int musicId) throws SQLException;
+
+    /**
+     * 批量删除
+     * @param userMusicList
+     * @return
+     * @throws SQLException
+     */
+    @Delete("<script>" +
+            "DELETE FROM user_music WHERE " +
+            "<foreach collection=\"list\" item=\"item\" index=\"index\" separator=\"or\"> " +
+            "user_id=#{item.userId} " +
+            "AND music_id=#{item.musicId} " +
+            "</foreach>" +
+            "</script>")
+    int batchDelete(List<UserMusic> userMusicList) throws SQLException;
 }

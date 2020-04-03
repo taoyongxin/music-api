@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author Zeng
@@ -39,5 +40,11 @@ public class UserMusicController {
     @GetMapping("/queryUser/{musicId}")
     Result queryUserMusicByMusicId(@PathVariable int musicId) {
         return userMusicService.queryByMusicId(musicId);
+    }
+
+    @ApiOperation(value = "用户批量取消收藏音乐",notes = "")
+    @PostMapping("/batchCancelLike")
+    Result batchDeleteUserMusic(@RequestBody List<UserMusic> userMusics) {
+        return userMusicService.batchcancelMusic(userMusics);
     }
 }

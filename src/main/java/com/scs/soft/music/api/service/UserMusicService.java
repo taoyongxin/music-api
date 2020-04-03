@@ -3,6 +3,8 @@ package com.scs.soft.music.api.service;
 import com.scs.soft.music.api.common.Result;
 import com.scs.soft.music.api.domain.entity.UserMusic;
 
+import java.util.List;
+
 /**
  * @author ZENG
  */
@@ -28,4 +30,11 @@ public interface UserMusicService {
      * @return
      */
     Result queryByMusicId(int musicId);
+
+    /**
+     * 批量取消收藏
+     * @param userMusicList
+     * @return
+     */
+    Result batchcancelMusic(List<UserMusic> userMusicList);
 }
