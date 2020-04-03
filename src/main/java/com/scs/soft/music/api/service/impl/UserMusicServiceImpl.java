@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author Zeng
@@ -51,6 +54,20 @@ public class UserMusicServiceImpl implements UserMusicService {
         }
         if (row == 1) {
             return Result.success();
+        }
+        return Result.failure(ResultCode.DATA_IS_WRONG);
+    }
+
+    @Override
+    public Result queryByMusicId(int musicId) {
+        List<Map> mapList = new ArrayList<>();
+        try {
+            mapList = userMusicMapper.selectUserMusicByMusicId(musicId);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if (mapList != null) {
+            return Result.success(mapList);
         }
         return Result.failure(ResultCode.DATA_IS_WRONG);
     }
