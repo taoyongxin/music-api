@@ -14,4 +14,18 @@ public interface UserMusicService {
      * @return
      */
     Result likeMusic(UserMusic userMusic);
+
+    /**
+     * 用户取消收藏音乐
+     * @param userMusic
+     * @return
+     */
+    Result cancelMusic(UserMusic userMusic);
+
+    /**
+     * 查看歌曲详情时，通过musicId查到喜欢这首歌曲的用户
+     * @param musicId
+     * @return
+     */
+    Result queryByMusicId(int musicId);
 }

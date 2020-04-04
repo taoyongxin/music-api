@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 
 import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author ZENG
@@ -40,4 +42,19 @@ public interface UserMusicMapper {
      */
     @Select("SELECT * FROM user_music WHERE user_id=#{userId} AND music_id=#{musicId}")
     UserMusic select(UserMusic userMusic) throws SQLException;
+
+    /**
+     * 通过musicId查用户
+     * @param musicId
+     * @return List
+     * @throws SQLException
+     */
+    @Select("SELECT t1.*,t2.user_name,t3.* " +
+            "FROM user_music t1 " +
+            "LEFT JOIN sys_user t2 " +
+            "ON t1.user_id = t2.id " +
+            "LEFT JOIN t_music t3 " +
+            "ON t1.music_id = t3.id " +
+            "WHERE t1.music_id = #{musicId}")
+    List<Map> selectUserMusicByMusicId(int musicId) throws SQLException;
 }
