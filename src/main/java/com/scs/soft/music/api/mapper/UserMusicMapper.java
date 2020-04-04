@@ -72,4 +72,18 @@ public interface UserMusicMapper {
             "</foreach>" +
             "</script>")
     int batchDelete(List<UserMusic> userMusicList) throws SQLException;
+
+    /**
+     *
+     * @param userId
+     * @return
+     * @throws SQLException
+     */
+    @Select("SELECT t1.* " +
+            "FROM user_music t3 " +
+            "LEFT JOIN t_music t1 " +
+            "ON t3.music_id = t1.id " +
+            "WHERE t3.user_id = #{userId} ")
+    List<Map> getMusicByUserId(int userId) throws SQLException;
+
 }

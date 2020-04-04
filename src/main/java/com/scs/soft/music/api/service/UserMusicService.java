@@ -37,4 +37,11 @@ public interface UserMusicService {
      * @return
      */
     Result batchcancelMusic(List<UserMusic> userMusicList);
+
+    /**
+     * 通过用户id查看用户喜欢的音乐数据
+     * @param userId
+     * @return
+     */
+    Result getMusicByUserId(int userId);
 }

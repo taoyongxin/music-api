@@ -47,4 +47,10 @@ public class UserMusicController {
     Result batchDeleteUserMusic(@RequestBody List<UserMusic> userMusics) {
         return userMusicService.batchcancelMusic(userMusics);
     }
+
+    @ApiOperation(value = "查询用户收藏的音乐数据",notes = "音乐数据")
+    @GetMapping("/{userId}")
+    Result getMusicByUserId(@PathVariable int userId){
+        return userMusicService.getMusicByUserId(userId);
+    }
 }

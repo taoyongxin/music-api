@@ -6,7 +6,6 @@ import com.scs.soft.music.api.domain.entity.UserMusic;
 import com.scs.soft.music.api.mapper.UserMusicMapper;
 import com.scs.soft.music.api.service.UserMusicService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.regexp.RE;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -84,5 +83,17 @@ public class UserMusicServiceImpl implements UserMusicService {
             return Result.success();
         }
         return Result.failure(ResultCode.DATA_IS_WRONG);
+    }
+
+    @Override
+    public Result getMusicByUserId(int userId) {
+        List<Map> mapList;
+        try {
+            mapList = userMusicMapper.getMusicByUserId(userId);
+        } catch (SQLException e) {
+            log.error(e.getMessage());
+            return Result.failure(ResultCode.DATABASE_ERROR);
+        }
+        return Result.success(mapList);
     }
 }

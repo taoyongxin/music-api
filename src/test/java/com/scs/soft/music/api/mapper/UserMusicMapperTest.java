@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @SpringBootTest(classes = MusicApiApplication.class)
 class UserMusicMapperTest {
@@ -41,5 +42,11 @@ class UserMusicMapperTest {
             e.printStackTrace();
         }
         System.out.println(a);
+    }
+
+    @Test
+    void getMusicByUserId() throws SQLException{
+        List<Map> mapList = userMusicMapper.getMusicByUserId(1);
+        System.out.println(mapList);
     }
 }
