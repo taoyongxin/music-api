@@ -79,6 +79,7 @@ public class SysUserServiceImpl implements SysUserService {
                     .binding(1)
                     .credits(0)
                     .createTime(LocalDate.now())
+                    .lastLoginTime(LocalDate.parse("1999-01-01"))
                     .build();
             try {
                 commonMapper.alert("sys_user");
@@ -115,12 +116,14 @@ public class SysUserServiceImpl implements SysUserService {
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                     Date nowDate = null;
                     Date lastDate = null;
+
                     try {
                         nowDate = sdf.parse(String.valueOf(LocalDate.now()));
                         lastDate = sdf.parse(String.valueOf(sysUser.getLastLoginTime()));
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
+
                     if (nowDate.after(lastDate)){
                         sysUser.setCredits(sysUser.getCredits()+5);
                     }

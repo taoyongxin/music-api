@@ -1,7 +1,6 @@
 package com.scs.soft.music.api.spider;
 
 import com.scs.soft.music.api.domain.entity.Music;
-import com.scs.soft.music.api.mapper.MusicMapper;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -14,7 +13,6 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import javax.annotation.Resource;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;

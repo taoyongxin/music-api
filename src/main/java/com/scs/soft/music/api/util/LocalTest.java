@@ -17,7 +17,7 @@ public class LocalTest {
         Date bt=null;
         Date et=null;
         try {
-            bt = sdf.parse("2020-04-03 00:00:00"); // 登录时间
+            bt = sdf.parse(null); // 登录时间
             et = sdf.parse("2020-04-03 00:00:00");  // 最后登录时间
         } catch (ParseException e) {
             e.printStackTrace();

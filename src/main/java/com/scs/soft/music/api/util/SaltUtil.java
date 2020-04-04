@@ -19,7 +19,7 @@ public class SaltUtil {
 //        System.out.println("带盐密文：" + MD5WithSalt(input,0));
 //        提取盐
 //        System.out.println("yyy:"+MD5WithSaltDeCode("000101","F3F47E2A80EE0607"));
-       // System.out.println("盐"+getSaltFromHash("5D9E84DB69E16903DF4A49B8F90A1F381BDCBCBCBC8EC919"));
+        System.out.println("盐"+getSaltFromHash("F38F70841959FBF9625B6920DD6E2CCA0C4046468265035E"));
 
     }
 
