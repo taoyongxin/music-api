@@ -2,6 +2,7 @@ package com.scs.soft.music.api.service.impl;
 
 import com.scs.soft.music.api.common.Result;
 import com.scs.soft.music.api.common.ResultCode;
+import com.scs.soft.music.api.domain.dto.PageDto;
 import com.scs.soft.music.api.domain.entity.Music;
 import com.scs.soft.music.api.mapper.MusicMapper;
 import com.scs.soft.music.api.service.MusicService;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Zeng
@@ -118,5 +120,16 @@ public class MusicServiceImpl implements MusicService {
         } else {
             return Result.failure(ResultCode.RESULT_CODE_DATA_NONE);
         }
+    }
+
+    @Override
+    public Result getAllMusic(PageDto pageDto) {
+        List<Map<String, Object>> mapList;
+        try {
+            mapList = musicMapper.getAllMusic(pageDto);
+        } catch (SQLException e) {
+            return Result.failure(ResultCode.RESULT_CODE_DATA_NONE);
+        }
+        return Result.success(mapList);
     }
 }

@@ -1,6 +1,7 @@
 package com.scs.soft.music.api.service;
 
 import com.scs.soft.music.api.common.Result;
+import com.scs.soft.music.api.domain.dto.PageDto;
 import com.scs.soft.music.api.domain.entity.Music;
 
 /**
@@ -41,4 +42,11 @@ public interface MusicService {
      * @return
      */
     Result queryByKeyword(String key);
+
+    /**
+     * 分页查询所有音乐
+     * @param pageDto
+     * @return
+     */
+    Result getAllMusic(PageDto pageDto);
 }

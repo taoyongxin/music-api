@@ -1,6 +1,7 @@
 package com.scs.soft.music.api.controller;
 
 import com.scs.soft.music.api.common.Result;
+import com.scs.soft.music.api.domain.dto.PageDto;
 import com.scs.soft.music.api.domain.entity.Music;
 import com.scs.soft.music.api.service.MusicService;
 import io.swagger.annotations.Api;
@@ -30,7 +31,7 @@ public class MusicController {
     }
 
     @ApiOperation(value = "查询所有音乐信息", notes = "data为音乐数据")
-    @GetMapping(value = "/all")
+    @GetMapping(value = "/allMusic")
     Result queryAll() {
         return musicService.queryAll();
     }
@@ -53,4 +54,7 @@ public class MusicController {
         return musicService.queryByKeyword(key);
     }
 
+    @ApiOperation(value = "分页查询音乐数据",notes = "音乐数据")
+    @PostMapping(value = "/all")
+    public Result getAllMusic(@RequestBody PageDto pageDto){ return musicService.getAllMusic(pageDto); }
 }

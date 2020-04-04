@@ -1,10 +1,12 @@
 package com.scs.soft.music.api.mapper;
 
+import com.scs.soft.music.api.domain.dto.PageDto;
 import com.scs.soft.music.api.domain.entity.Music;
 import org.apache.ibatis.annotations.*;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Zeng
@@ -68,5 +70,15 @@ public interface MusicMapper {
             "OR author LIKE CONCAT('%',#{key},'%') " +
             "OR type LIKE CONCAT('%',#{key},'%') ")
     List<Music> queryByKeyword(@Param("key") String key) throws SQLException;
+
+    /**
+     * 分页查询音乐数据
+     * @param pageDto
+     * @return
+     * @throws SQLException
+     */
+    @Select("SELECT * FROM t_music " +
+            "LIMIT ${pageDto.pageSize*(pageDto.currentPage-1)},#{pageDto.pageSize}")
+    List<Map<String,Object>> getAllMusic(@Param("pageDto")PageDto pageDto) throws SQLException;
 
 }
