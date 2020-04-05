@@ -29,18 +29,23 @@ public class UserMusicServiceImpl implements UserMusicService {
 
     @Override
     public Result likeMusic(UserMusic userMusic) {
-        UserMusic userMusic1 = UserMusic.builder()
-                .userId(userMusic.getUserId())
-                .musicId(userMusic.getMusicId())
-                .build();
+        UserMusic userMusic1 = null;
         try {
-            if (userMusicMapper.select(userMusic1) == null) {
-                userMusicMapper.insert(userMusic1);
-            }
+            userMusic1 = userMusicMapper.select(userMusic);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return Result.success(userMusic1);
+        if(userMusic1==null){
+            try {
+                userMusicMapper.insert(userMusic);
+            } catch (SQLException e) {
+                log.error(e.getMessage());
+                return Result.failure(ResultCode.DATABASE_ERROR);
+            }
+        } else {
+            return Result.failure(ResultCode.DATA_ALREADY_EXISTED);
+        }
+        return Result.success(userMusic);
     }
 
     @Override

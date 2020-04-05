@@ -49,4 +49,14 @@ class UserMusicMapperTest {
         List<Map> mapList = userMusicMapper.getMusicByUserId(1);
         System.out.println(mapList);
     }
+
+    @Test
+    void select() throws SQLException{
+        UserMusic userMusic = UserMusic.builder()
+                .musicId(22)
+                .userId(1)
+                .build();
+        UserMusic userMusic1=userMusicMapper.select(userMusic);
+        System.out.println(userMusic1!=null);
+    }
 }
