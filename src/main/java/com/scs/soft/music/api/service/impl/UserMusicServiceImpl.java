@@ -51,16 +51,6 @@ public class UserMusicServiceImpl implements UserMusicService {
 
     @Override
     public Result cancelMusic(UserMusic userMusic) {
-//        int row = 0;
-//        try {
-//            row = userMusicMapper.delete(userMusic);
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        if (row == 1) {
-//            return Result.success();
-//        }
-//        return Result.failure(ResultCode.DATA_IS_WRONG);
         UserMusic userMusic1 = null;
         try {
             userMusic1 = userMusicMapper.select(userMusic);
@@ -119,5 +109,29 @@ public class UserMusicServiceImpl implements UserMusicService {
             return Result.failure(ResultCode.DATABASE_ERROR);
         }
         return Result.success(mapList);
+    }
+
+    @Override
+    public Result batchInsertUserMusic(List<UserMusic> userMusics) {
+        List<UserMusic> userMusicList = new ArrayList<>();
+        for (int i =0;i<userMusics.size();i++){
+            UserMusic userMusic = userMusics.get(i);
+            UserMusic userMusic1 = null;
+            try {
+                userMusic1=userMusicMapper.select(userMusic);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            if (userMusic1==null){
+                userMusicList.add(userMusics.get(i));
+            }
+        }
+        try {
+            userMusicMapper.batchInsert(userMusicList);
+        } catch (SQLException e) {
+            log.error(e.getMessage());
+            return Result.failure(ResultCode.DATABASE_ERROR);
+        }
+        return Result.success();
     }
 }

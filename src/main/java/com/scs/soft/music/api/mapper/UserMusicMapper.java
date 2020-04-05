@@ -1,10 +1,7 @@
 package com.scs.soft.music.api.mapper;
 
 import com.scs.soft.music.api.domain.entity.UserMusic;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -86,5 +83,17 @@ public interface UserMusicMapper {
             "WHERE t3.user_id = #{userId} ")
     List<Map> getMusicByUserId(int userId) throws SQLException;
 
+    /**
+     * 批量收藏音乐
+     * @param userMusics
+     * @throws SQLException
+     */
+    @Insert("<script>" +
+            "INSERT INTO user_music (user_id,music_id) VALUES " +
+            "<foreach collection=\"list\" item=\"item1\" index=\"index\"  separator=\",\">" +
+            "(#{item1.userId},#{item1.musicId}) " +
+            "</foreach>" +
+            "</script>")
+    void batchInsert(@Param("list") List<UserMusic> userMusics) throws SQLException;
 
 }

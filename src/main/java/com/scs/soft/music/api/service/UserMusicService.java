@@ -44,4 +44,11 @@ public interface UserMusicService {
      * @return
      */
     Result getMusicByUserId(int userId);
+
+    /**
+     * 批量新增用户收藏音乐数据
+     * @param userMusics
+     * @return
+     */
+    Result batchInsertUserMusic(List<UserMusic> userMusics);
 }

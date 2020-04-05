@@ -53,4 +53,10 @@ public class UserMusicController {
     Result getMusicByUserId(@PathVariable int userId){
         return userMusicService.getMusicByUserId(userId);
     }
+
+    @ApiOperation(value = "批量收藏音乐",notes = "音乐数据")
+    @PostMapping("/batchInsertUserMusic")
+    Result batchInsertUserMusic(@RequestBody List<UserMusic> userMusics){
+        return userMusicService.batchInsertUserMusic(userMusics);
+    }
 }

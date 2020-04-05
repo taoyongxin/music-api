@@ -16,6 +16,8 @@ class UserMusicMapperTest {
 
     @Resource
     private UserMusicMapper userMusicMapper;
+    @Resource
+    private CommonMapper commonMapper;
 
     @Test
     void selectUserMusicByMusicId() {
@@ -58,5 +60,19 @@ class UserMusicMapperTest {
                 .build();
         UserMusic userMusic1=userMusicMapper.select(userMusic);
         System.out.println(userMusic1!=null);
+    }
+
+    @Test
+    void batchInsert() throws SQLException {
+        commonMapper.alert("user_music");
+        List<UserMusic> userMusicList = new ArrayList<>();
+        for (int i=1;i<10;i++){
+            UserMusic userMusic = UserMusic.builder()
+                    .userId(1)
+                    .musicId(i)
+                    .build();
+            userMusicList.add(userMusic);
+        }
+        userMusicMapper.batchInsert(userMusicList);
     }
 }
