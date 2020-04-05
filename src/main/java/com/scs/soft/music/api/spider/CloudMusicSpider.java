@@ -94,6 +94,7 @@ public class CloudMusicSpider {
             Element sgchfl = sgftEle.child(0);
             String name = sgchfl.child(0).text();
             String authorMusic = sgchfl.child(1).text();
+            authorMusic = authorMusic.substring(0,authorMusic.indexOf('-'));
 //                        System.out.println(authorMusic);
             Music music = Music.builder()
                     .id(id)
