@@ -33,7 +33,8 @@ public class UserMusicServiceImpl implements UserMusicService {
         try {
             userMusic1 = userMusicMapper.select(userMusic);
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
+            return Result.failure(ResultCode.DATABASE_ERROR);
         }
         if(userMusic1==null){
             try {
@@ -50,16 +51,34 @@ public class UserMusicServiceImpl implements UserMusicService {
 
     @Override
     public Result cancelMusic(UserMusic userMusic) {
-        int row = 0;
+//        int row = 0;
+//        try {
+//            row = userMusicMapper.delete(userMusic);
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        if (row == 1) {
+//            return Result.success();
+//        }
+//        return Result.failure(ResultCode.DATA_IS_WRONG);
+        UserMusic userMusic1 = null;
         try {
-            row = userMusicMapper.delete(userMusic);
+            userMusic1 = userMusicMapper.select(userMusic);
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
+            return Result.failure(ResultCode.DATABASE_ERROR);
         }
-        if (row == 1) {
-            return Result.success();
+        if (userMusic1!=null){
+            try {
+                userMusicMapper.delete(userMusic);
+            } catch (SQLException e) {
+                log.error(e.getMessage());
+                return Result.failure(ResultCode.DATABASE_ERROR);
+            }
+        }else {
+            return Result.failure(ResultCode.RESULT_CODE_DATA_NONE);
         }
-        return Result.failure(ResultCode.DATA_IS_WRONG);
+        return Result.success(ResultCode.SUCCESS);
     }
 
     @Override
