@@ -19,10 +19,10 @@ public interface UserMusicService {
 
     /**
      * 用户取消收藏音乐
-     * @param userMusic
+     * @param id
      * @return
      */
-    Result cancelMusic(UserMusic userMusic);
+    Result cancelMusic(int id);
 
     /**
      * 查看歌曲详情时，通过musicId查到喜欢这首歌曲的用户
@@ -33,10 +33,10 @@ public interface UserMusicService {
 
     /**
      * 批量取消收藏
-     * @param userMusicList
+     * @param
      * @return
      */
-    Result batchcancelMusic(List<UserMusic> userMusicList);
+    Result batchcancelMusic(String str);
 
     /**
      * 通过用户id查看用户喜欢的音乐数据

@@ -50,23 +50,11 @@ public class UserMusicServiceImpl implements UserMusicService {
     }
 
     @Override
-    public Result cancelMusic(UserMusic userMusic) {
-        UserMusic userMusic1 = null;
+    public Result cancelMusic(int id) {
         try {
-            userMusic1 = userMusicMapper.select(userMusic);
+            userMusicMapper.deleteById(id);
         } catch (SQLException e) {
-            log.error(e.getMessage());
-            return Result.failure(ResultCode.DATABASE_ERROR);
-        }
-        if (userMusic1!=null){
-            try {
-                userMusicMapper.delete(userMusic);
-            } catch (SQLException e) {
-                log.error(e.getMessage());
-                return Result.failure(ResultCode.DATABASE_ERROR);
-            }
-        }else {
-            return Result.failure(ResultCode.RESULT_CODE_DATA_NONE);
+            e.printStackTrace();
         }
         return Result.success(ResultCode.SUCCESS);
     }
@@ -86,17 +74,26 @@ public class UserMusicServiceImpl implements UserMusicService {
     }
 
     @Override
-    public Result batchcancelMusic(List<UserMusic> userMusicList) {
-        int rows = 0;
-        try {
-           rows = userMusicMapper.batchDelete(userMusicList);
-        } catch (SQLException e) {
-            e.printStackTrace();
+    public Result batchcancelMusic(String str) {
+        String[] a = new String[100];
+        int i, j, k = 0;
+        String str1 = str;
+        for (i = 0; str1.length() != 0; i++) {
+            a[i] = str1.substring(0, str1.indexOf(","));
+            k = str1.indexOf(",");
+            str1 = str1.substring(k + 1, str1.length());
         }
-        if (rows == userMusicList.size()) {
-            return Result.success();
+        System.out.println(i);
+        Integer[] b = new Integer[100];
+        for (j = 0; j < i; j++) {
+            b[j] = Integer.valueOf(a[j]);
+            try {
+                userMusicMapper.deleteById(b[j]);
+            } catch (SQLException e) {
+                return Result.failure(ResultCode.DATABASE_ERROR);
+            }
         }
-        return Result.failure(ResultCode.DATA_IS_WRONG);
+        return Result.success();
     }
 
     @Override

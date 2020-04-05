@@ -28,23 +28,6 @@ class UserMusicMapperTest {
         }
     }
 
-    @Test
-    void batchDelete() {
-        List<UserMusic> userMusics = new ArrayList<>();
-        UserMusic userMusic1 = UserMusic.builder()
-                .musicId(7).userId(2).build();
-        UserMusic userMusic2 = UserMusic.builder()
-                .musicId(5).userId(3).build();
-        userMusics.add(userMusic1);
-        userMusics.add(userMusic2);
-        int a = 0;
-        try {
-            a = userMusicMapper.batchDelete(userMusics);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        System.out.println(a);
-    }
 
     @Test
     void getMusicByUserId() throws SQLException{
@@ -68,7 +51,7 @@ class UserMusicMapperTest {
         List<UserMusic> userMusicList = new ArrayList<>();
         for (int i=1;i<10;i++){
             UserMusic userMusic = UserMusic.builder()
-                    .userId(1)
+                    .userId(9)
                     .musicId(i)
                     .build();
             userMusicList.add(userMusic);

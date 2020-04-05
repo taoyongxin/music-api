@@ -31,9 +31,9 @@ public class UserMusicController {
     }
 
     @ApiOperation(value = "用户取消收藏音乐",notes = "")
-    @PostMapping("/cancelLike")
-    Result deleteUserMusic(@RequestBody UserMusic userMusic) {
-        return userMusicService.cancelMusic(userMusic);
+    @DeleteMapping("/cancelLike/{id}")
+    Result deleteUserMusic(@PathVariable int id) {
+        return userMusicService.cancelMusic(id);
     }
 
     @ApiOperation(value = "查喜欢这首歌曲的用户",notes = "")
@@ -43,9 +43,9 @@ public class UserMusicController {
     }
 
     @ApiOperation(value = "用户批量取消收藏音乐",notes = "")
-    @PostMapping("/batchCancelLike")
-    Result batchDeleteUserMusic(@RequestBody List<UserMusic> userMusics) {
-        return userMusicService.batchcancelMusic(userMusics);
+    @GetMapping("/batchCancelLike/{str}")
+    Result batchDeleteUserMusic(@PathVariable String str) {
+        return userMusicService.batchcancelMusic(str);
     }
 
     @ApiOperation(value = "查询用户收藏的音乐数据",notes = "音乐数据")

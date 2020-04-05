@@ -24,12 +24,12 @@ public interface UserMusicMapper {
 
     /**
      * 删除
-     * @param userMusic
+     * @param
      * @return
      * @throws SQLException
      */
-    @Delete("DELETE FROM user_music WHERE user_id=#{userId} AND music_id=#{musicId}")
-    int delete(UserMusic userMusic) throws SQLException;
+    @Delete("DELETE FROM user_music WHERE id=#{id}")
+    int deleteById(int id) throws SQLException;
 
     /**
      * 查询
@@ -55,20 +55,6 @@ public interface UserMusicMapper {
             "WHERE t1.music_id = #{musicId}")
     List<Map> selectUserMusicByMusicId(int musicId) throws SQLException;
 
-    /**
-     * 批量删除
-     * @param userMusicList
-     * @return
-     * @throws SQLException
-     */
-    @Delete("<script>" +
-            "DELETE FROM user_music WHERE " +
-            "<foreach collection=\"list\" item=\"item\" index=\"index\" separator=\"or\"> " +
-            "user_id=#{item.userId} " +
-            "AND music_id=#{item.musicId} " +
-            "</foreach>" +
-            "</script>")
-    int batchDelete(List<UserMusic> userMusicList) throws SQLException;
 
     /**
      *
@@ -76,7 +62,7 @@ public interface UserMusicMapper {
      * @return
      * @throws SQLException
      */
-    @Select("SELECT t1.* " +
+    @Select("SELECT t1.*,t3.id as um " +
             "FROM user_music t3 " +
             "LEFT JOIN t_music t1 " +
             "ON t3.music_id = t1.id " +

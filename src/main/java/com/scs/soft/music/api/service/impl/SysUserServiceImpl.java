@@ -56,7 +56,9 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public Result register(SignDto signDto) {
         String mobile = signDto.getMobile();
+        System.out.println(mobile);
         String password = signDto.getPassword();
+        System.out.println(password);
         String passwordSalt = SaltUtil.MD5WithSalt(password,0);
         String salt = SaltUtil.getSaltFromHash(passwordSalt);
         QueryDto queryDto = QueryDto.builder().equalsString(mobile).build();
